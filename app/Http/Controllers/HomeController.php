@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Vinkla\Hashids\Facades\Hashids;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $num = rand(1,9999);
+
+        $hash = Hashids::encode($num);
+
+        return view('home', ['hash' => $hash, 'num' => $num]);
     }
 }
