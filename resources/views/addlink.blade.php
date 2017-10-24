@@ -54,7 +54,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                                <label for="image" class="col-md-4 control-label">圖片網址</label>
+                                <label for="image" class="col-md-4 control-label">圖片</label>
 
                                 <div class="col-md-6">
                                     <input id="image" type="file" class="form-control" name="image" value="{{ old('image') }}" required autofocus>

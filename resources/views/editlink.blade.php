@@ -8,7 +8,7 @@
                     <div class="panel-heading">編輯</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="{{ route('linkEditPost', $hashId) }}">
+                        <form class="form-horizontal" method="POST" action="{{ route('linkEditPost', $hashId) }}" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('pagelink') ? ' has-error' : '' }}">
@@ -54,21 +54,23 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                                <label for="image" class="col-md-4 control-label">圖片網址</label>
+                                <label for="image" class="col-md-4 control-label">圖片</label>
 
                                 <div class="col-md-6">
-                                    <input id="image" type="text" class="form-control" name="image" value="{{ $link->og_data->image or old('image') }}" required autofocus>
+                                    <input id="image" type="file" class="form-control" name="image" value="" autofocus>
 
                                     @if ($errors->has('image'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('image') }}</strong>
                                     </span>
                                     @endif
+                                    <img src=" {{ url($link->og_data->image) }}" alt="image" width="350px" style="padding-top: 1em" />
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
+                                    <input id="imageOld" type="hidden" class="form-control" name="imageOld" value="{{ $link->og_data->image }}">
                                     <button type="submit" class="btn btn-primary">
                                         送出
                                     </button>

@@ -21,6 +21,22 @@ class LinkController extends Controller
         $this->middleware('auth');
     }
 
+    public function getLink($hashId){
+
+        $linkId = Hashids::decode($hashId);
+
+        if ($linkId){
+            $linkJson = DB::table('link')
+                ->select('og_data')
+                ->where('id', $linkId)
+                ->get();
+
+            $data = json_decode($linkJson[0]->og_data);
+
+            return view('linkpage', ['data' => $data]);
+        }
+    }
+
     public function linkList(){
 
         $links = DB::table('link')
@@ -65,7 +81,7 @@ class LinkController extends Controller
             'image', $request->file('image'), Hashids::encode($linkId) . '.jpg'
         );
 
-        $ogData['image'] = $path . '.jpg';
+        $ogData['image'] = $path;
 
         $ogDataJson = json_encode($ogData);
 
@@ -105,8 +121,19 @@ class LinkController extends Controller
             'pagelink'  => $request->input('pagelink'),
             'title'     => $request->input('title'),
             'content'   => $request->input('content'),
-            'image'     => $request->input('image'),
+            'image'     => $request->input('imageOld'),
         ];
+
+        if ($request->file('image') !== null){
+
+            Storage::delete('image/' . $hashId . '.jpg');
+
+            $path = Storage::putFileAs(
+                'image', $request->file('image'), Hashids::encode($linkId) . '.jpg'
+            );
+
+            $ogData['image'] = $path;
+        }
 
         $ogData = json_encode($ogData);
 

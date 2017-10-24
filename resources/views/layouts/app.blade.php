@@ -8,10 +8,15 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Super-short') }}</title>
+    <title>Super-short</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        .hover_img a { position:relative; }
+        .hover_img a span { position:absolute; display:none; z-index:99; }
+        .hover_img a:hover span { display:block; }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -28,7 +33,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ route('home') }}">
+                    <a class="navbar-brand" href="{{ route('list') }}">
                         Super-short
                     </a>
                 </div>

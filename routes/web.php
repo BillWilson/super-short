@@ -15,15 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/{hashId}', function ($hashId) {
-    echo $hashId;
-})->where('hashId', '[A-Za-z0-9]+');
-
 Route::group(['prefix' => 'see'], function () {
 
     Auth::routes();
 
-    Route::get('/home', 'HomeController@index')->name('home');
+    //Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/list', 'LinkController@linkList')->name('list');
 
@@ -42,3 +38,4 @@ Route::group(['prefix' => 'see'], function () {
 });
 
 
+Route::get('/{hashId}', 'LinkController@getLink')->where('hashId', '[A-Za-z0-9]+');
