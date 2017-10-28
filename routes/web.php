@@ -38,4 +38,4 @@ Route::group(['prefix' => 'see'], function () {
 });
 
 
-Route::get('/{hashId}', 'LinkController@getLink')->where('hashId', '[A-Za-z0-9]+');
+Route::get('/{hashId}', 'PublicController@getLink')->where('hashId', '[A-Za-z0-9]+');

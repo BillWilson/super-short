@@ -41,7 +41,8 @@ class LinkController extends Controller
 
         $links = DB::table('link')
             ->limit(10)
-            ->get();
+            ->orderBy('id', 'DESC')
+            ->paginate(12);
 
         foreach ($links as $link){
             $link->id = Hashids::encode($link->id);
@@ -126,7 +127,7 @@ class LinkController extends Controller
 
         if ($request->file('image') !== null){
 
-            Storage::delete('image/' . $hashId . '.jpg');
+            $result = Storage::delete('image/' . $hashId . '.jpg');
 
             $path = Storage::putFileAs(
                 'image', $request->file('image'), Hashids::encode($linkId) . '.jpg'

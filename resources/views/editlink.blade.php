@@ -1,85 +1,62 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">編輯</div>
+    <div class="ui piled segment">
+        <a class="ui pink ribbon label">編輯連結</a>
+        <form class="ui form" method="POST" action="{{ route('linkEditPost', $hashId) }}" enctype="multipart/form-data">
+            {{ csrf_field() }}
 
-                    <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="{{ route('linkEditPost', $hashId) }}" enctype="multipart/form-data">
-                            {{ csrf_field() }}
+            <div class="field">
+                <label>網頁連結</label>
+                <input id="pagelink" type="text" class="form-control" name="pagelink" value="{{ $link->og_data->pagelink or old('pagelink') }}" required autofocus>
+            </div>
+            @if($errors->has('pagelink'))
+                <div class="ui error message">
+                    <div class="header">錯誤</div>
+                    <p>缺少連結</p>
+                </div>
+            @endif
 
-                            <div class="form-group{{ $errors->has('pagelink') ? ' has-error' : '' }}">
-                                <label for="pagelink" class="col-md-4 control-label">網頁連結</label>
+            <div class="field">
+                <label>標題</label>
+                <input id="title" type="text" class="form-control" name="title" value="{{ $link->og_data->title or  old('title') }}" required autofocus>
+            </div>
+            @if($errors->has('title'))
+                <div class="ui error message">
+                    <div class="header">錯誤</div>
+                    <p>缺少標題</p>
+                </div>
+            @endif
 
-                                <div class="col-md-6">
-                                    <input id="pagelink" type="text" class="form-control" name="pagelink" value="{{ $link->og_data->pagelink or old('pagelink') }}" required autofocus>
+            <div class="field">
+                <label>內容文字</label>
+                <input id="content" type="text" class="form-control" name="content" value="{{ $link->og_data->content or  old('content') }}" required autofocus>
+            </div>
+            @if( $errors->has('content'))
+                <div class="ui error message">
+                    <div class="header">錯誤</div>
+                    <p>缺少內容文字</p>
+                </div>
+            @endif
 
-                                    @if ($errors->has('pagelink'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('pagelink') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                                <label for="title" class="col-md-4 control-label">標題</label>
-
-                                <div class="col-md-6">
-                                    <input id="title" type="text" class="form-control" name="title" value="{{ $link->og_data->title or  old('title') }}" required autofocus>
-
-                                    @if ($errors->has('title'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('title') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
-                                <label for="content" class="col-md-4 control-label">內容文字</label>
-
-                                <div class="col-md-6">
-                                    <input id="content" type="text" class="form-control" name="content" value="{{ $link->og_data->content or  old('content') }}" required autofocus>
-
-                                    @if ($errors->has('content'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('content') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                                <label for="image" class="col-md-4 control-label">圖片</label>
-
-                                <div class="col-md-6">
-                                    <input id="image" type="file" class="form-control" name="image" value="" autofocus>
-
-                                    @if ($errors->has('image'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('image') }}</strong>
-                                    </span>
-                                    @endif
-                                    <img src=" {{ url($link->og_data->image) }}" alt="image" width="350px" style="padding-top: 1em" />
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
-                                    <input id="imageOld" type="hidden" class="form-control" name="imageOld" value="{{ $link->og_data->image }}">
-                                    <button type="submit" class="btn btn-primary">
-                                        送出
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+            <div class="field">
+                <label>圖片</label>
+                <input id="image" type="file" class="form-control" name="image" value="{{ old('image') }}" autofocus>
+            </div>
+            <div class="ui centered raised segment" style="width: 50%">
+                <div class="ui top attached teal label">目前圖片</div>
+                <div class="ui fluid image">
+                    <img src=" {{ url($link->og_data->image . '?' . time()) }}" alt="image" width="350px" style="padding-top: 1em" />
                 </div>
             </div>
-        </div>
+            @if($errors->has('image'))
+                <div class="ui error message">
+                    <div class="header">圖片</div>
+                    <p>缺少連結</p>
+                </div>
+            @endif
+            <input id="imageOld" type="hidden" class="form-control" name="imageOld" value="{{ $link->og_data->image }}">
+            <button class="ui green button" type="submit">送出</button>
+        </form>
     </div>
 @endsection

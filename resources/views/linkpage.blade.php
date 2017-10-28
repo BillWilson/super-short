@@ -12,16 +12,17 @@
     <meta name="twitter:title" content="{{ $data->title }}" />
     <meta name="twitter:description" content="{{ $data->content }}" />
     <meta name="twitter:image" content="{{ url($data->image) }}" />
-    <meta property="og:url" content="{{ $data->pagelink }}" />
+    <!--<meta property="og:url" content="{{ $data->pagelink }}" />-->
     <meta property="og:image" content="{{ url($data->image) }}" />
     <meta property="og:image:url" content="{{ url($data->image) }}" />
+    <meta property="og:image:alt" content="{{ $data->title }}" />
     <meta property="og:title" content="{{ $data->title }}" />
     <meta property="og:description" content="{{ $data->content }}" />
     <meta property="og:type" content="article" />
     <meta http-equiv="refresh" content="5;url='{{ $data->pagelink }}'" />
     <title>{{ $data->title }}</title>
     <script type="text/javascript">
-        //window.location.replace("{{ $data->pagelink }}");
+        window.location.replace("{{ $data->pagelink }}");
     </script>
 </head>
 <body>
