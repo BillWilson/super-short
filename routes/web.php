@@ -10,13 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
 Route::get('/', function () {
     return view('welcome');
 });
+*/
 
 Route::group(['prefix' => 'see'], function () {
-
     Auth::routes();
 
     //Route::get('/home', 'HomeController@index')->name('home');
@@ -36,6 +36,3 @@ Route::group(['prefix' => 'see'], function () {
     Route::post('/list/{hashId}/delete', 'LinkController@delLinkPost')->name('linkDeletePost')
         ->where('hashId', '[A-Za-z0-9]+');
 });
-
-
-Route::get('/{hashId}', 'PublicController@getLink')->where('hashId', '[A-Za-z0-9]+');

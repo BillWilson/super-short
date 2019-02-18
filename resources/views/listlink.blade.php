@@ -16,7 +16,7 @@
                                     </span>
                                 </div>
                                 <i class="linkify icon"></i>
-                                <a class="category" href="{{ url($link->id) }}">{{ $link->id }}</a>
+                                <a class="category" href="{{ url($link->id) }}" target="_blank">{{ $link->id }}</a>
                             </div>
                         </div>
                         <div class="blurring dimmable image" style="overflow: inherit;">
@@ -32,7 +32,7 @@
                                                     預覽
                                                 </a>
 
-                                                <a type="submit" class="ui green button" href="{{ route('linkEdit', $link->id) }}">
+                                                <a class="ui inverted green button" href="{{ route('linkEdit', $link->id) }}">
                                                     編輯
                                                 </a>
                                                 <button class="ui inverted grey button" type="submit" onclick="return confirm('確定要刪除 {{ $link->og_data->title }} ?');">
@@ -45,17 +45,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <img id="card_image" src="{{ url($link->og_data->image . '?' . time()) }}">
+                            <div id="card_image" style="background-image: url('{{ url($link->og_data->image . '?' . time()) }}');">
+                            </div>
                         </div>
                         <div class="content">
                             <div class="header">
-                                <a href="{{ $link->og_data->pagelink }}" id="card-header">{{ $link->og_data->title }}</a>
+                                <a href="{{ $link->og_data->pagelink }}" id="card-header" target="_blank">{{ $link->og_data->title }}</a>
                             </div>
                             <div class="description" id="card-description">
                                 {{ $link->og_data->content }}
                             </div>
                             <div class="meta">
-                                <span class="date">DOMAIN.NAME</span>
+                                <span class="date">{{ strtoupper($_SERVER['HTTP_HOST']) }}</span>
                             </div>
                         </div>
                     </div>
